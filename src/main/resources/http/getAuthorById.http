@@ -1,0 +1,8 @@
+GRAPHQL http://localhost:8080/graphql
+
+query {
+    getAuthorById(id:2){
+        id
+        name
+    }
+}

@@ -1,0 +1,21 @@
+GRAPHQL http://localhost:8080/graphql
+
+mutation {
+    addAuthor(authorName:"우용6"){
+        books{
+            id
+            publishedDate
+            publisher
+            title
+        }
+        id
+        name
+        reviews{
+            id
+            rating
+            content
+            createdDate
+        }
+    }
+}
+

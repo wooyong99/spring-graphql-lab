@@ -1,0 +1,24 @@
+spring:
+  application:
+    name : demo-graphql
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+    schema:
+      inspection:
+        enabled: true
+  #  sql:
+#    init:
+#      data-locations: classpath:sql/data.sql
+  datasource:
+    username: root
+    password: 1234
+    url: jdbc:mysql://localhost:3306/graphql?useUnicode=yes&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+      format_sql: true
+      show_sql: true
+      dialect: org.hibernate.dialect.MySQLDialect

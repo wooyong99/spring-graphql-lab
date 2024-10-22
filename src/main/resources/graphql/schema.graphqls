@@ -1,0 +1,72 @@
+scalar Date
+scalar String
+scalar Boolean
+scalar Float
+
+directive @auth on FIELD_DEFINITION
+
+type Query {
+    getVersion: Version
+
+    # Author
+    getAllAuthors: [Author]
+    getAuthorById(id:ID!) : Author
+
+    # Book
+    getBookById(id:ID!) : Book
+    getBooks : [Book]
+    getBooksByAuthorName(authorName : String): [Book]
+#
+#    # Review
+#    getReviewsByBookId(id:ID!): [Review]
+}
+
+type Mutation {
+    # Author
+    addAuthor(authorName : String) : Author
+
+    # Book
+    addBook(title: String!, publishedDate:String):Book!
+#    deleteBook(id:ID!): DeleteBookResponse
+#
+#    # Review
+#    addReview(bookdId:ID!, content:String, rating:Float):Review
+#    deleteReviewById(id:ID!):DeleteReviewResponse
+}
+
+type DeleteReviewResponse{
+    success : Boolean!
+}
+
+type DeleteBookResponse{
+    success : Boolean!
+}
+
+type Version {
+    name : String,
+    releaseDate : String
+}
+type Book {
+    id : ID!
+    title : String!
+    publisher : String
+    publishedDate:Date
+    authors: [Author]!
+    reviews: [Review]!
+}
+
+type Author {
+    id : ID
+    name : String
+    books : [Book]
+    reviews : [Review]
+}
+
+type Review {
+    id: ID
+    book : Book
+    content : String
+    rating : Float
+    createdDate : Date
+}
+
