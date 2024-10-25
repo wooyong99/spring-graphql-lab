@@ -24,4 +24,21 @@ public class Book {
     @JoinColumn(nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Author author;
 
+    protected Book(String title, Date publishedDate, Author author){
+        this.title = title;
+        this.publishedDate = publishedDate;
+        setAuthor(author);
+    }
+
+    private void setAuthor(Author author) {
+        if(this.author != null) {
+            this.author.getBooks().remove(this);
+        }
+        this.author = author;
+        this.author.getBooks().add(this);
+    }
+
+    public static Book of(String title, Date publishedDate, Author author){
+        return new Book(title, publishedDate, author);
+    }
 }

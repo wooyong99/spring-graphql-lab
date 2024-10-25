@@ -11,4 +11,6 @@ public interface BookRepository {
     List<Book> findAll();
 
     Book findById(Long bookId);
+
+    void save(Book book);
 }

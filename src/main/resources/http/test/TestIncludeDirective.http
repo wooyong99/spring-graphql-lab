@@ -1,0 +1,9 @@
+GRAPHQL http://localhost:8080/graphql
+
+query TestIncludeDriective($isShow : Boolean = false) {
+    includeDirectiveTest(isShow: $isShow){
+        name
+        description
+        releaseDate @include(if : $isShow)
+    }
+}

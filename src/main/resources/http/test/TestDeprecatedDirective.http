@@ -1,0 +1,9 @@
+GRAPHQL http://localhost:8080/graphql
+
+query TestDeprecatedDirective {
+    getVersion {
+        name
+        description
+        releaseDate
+    }
+}

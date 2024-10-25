@@ -32,12 +32,4 @@ public class Author {
         this.name = name;
     }
 
-    public void addBook(Book book){
-        this.books.add(book);
-    }
-
-    public void addReview(Review review){
-        this.reviews.add(review);
-    }
-
 }

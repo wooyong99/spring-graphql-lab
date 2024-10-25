@@ -30,9 +30,45 @@ public class AuthorController {
         return authorService.getAuthorById(id);
     }
 
+/*    스키마 파일 구조
+    type Mutation {
+        addAuthor(input : CreateAuthorRequest): Author
+    }
+    요청 쿼리
+    mutation {
+         addAuthor(input : {authorName : "Hello") {
+             id
+             name
+       }
+    }*/
+
     @MutationMapping
-    public Author addAuthor(@Argument CreateAuthorRequest request){
+    public Author addAuthor(@Argument("input") CreateAuthorRequest request){
         CreateAuthorServiceRequest serviceRequest = new CreateAuthorServiceRequest(request.getAuthorName());
         return authorService.create(serviceRequest);
     }
+/*
+    Argument 와 Arguments 차이점
+    Argument는 단일 인자를 처리할 때 사용된다. 스칼라 타입이나 간단한 객체를 인자로 받을 때 사용한다.
+    Arguments는 여러 인자를 포함하는 복잡한 요청을 한번에 객체로 매핑하여 처리할 때 사용한다.
+*/
+
+/*    스키마 구조
+    type Mutation {
+        addAuthor(authorName : String ): Author
+    }
+    요청 쿼리
+    mutation {
+        addAuthor(authorName : "Hello"){
+            id
+            name
+        }
+    }
+
+    @MutationMapping
+    public Author addAuthor(@Arguments CreateAuthorRequest request){
+        System.out.println(request.getAuthorName());
+        CreateAuthorServiceRequest serviceRequest = new CreateAuthorServiceRequest(request.getAuthorName());
+        return authorService.create(serviceRequest);
+    }*/
 }

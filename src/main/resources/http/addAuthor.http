@@ -1,7 +1,7 @@
 GRAPHQL http://localhost:8080/graphql
 
 mutation {
-    addAuthor(authorName:"우용6"){
+    addAuthor(input:{ authorName:"우용7" }){
         books{
             id
             publishedDate

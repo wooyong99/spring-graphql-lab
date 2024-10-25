@@ -1,0 +1,10 @@
+GRAPHQL http://localhost:8080/graphql
+
+
+query SkipDirectiveTest($isShow : Boolean = false) {
+    skipDirectiveTest(isShow : $isShow) {
+        name
+        description
+        releaseDate @skip(if : $isShow)
+    }
+}

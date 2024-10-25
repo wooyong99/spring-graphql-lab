@@ -30,4 +30,9 @@ public class BookRepositoryImpl implements BookRepository {
     public Book findById(Long bookId) {
         return bookJpaRepository.findById(bookId).get();
     }
+
+    @Override
+    public void save(Book book) {
+        bookJpaRepository.save(book);
+    }
 }

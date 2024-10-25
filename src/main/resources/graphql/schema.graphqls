@@ -4,13 +4,21 @@ scalar Boolean
 scalar Float
 
 directive @auth on FIELD_DEFINITION
+directive @log on FIELD_DEFINITION
+directive @deprecated(
+    reason: String = "No longer supported"
+) on FIELD_DEFINITION | ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | ENUM_VALUE
+
 
 type Query {
-    getVersion: Version
+    version: Version @log
+    versions : Version @log
+    skipDirectiveTest(isShow : Boolean!) : Version
+    includeDirectiveTest(isShow : Boolean!) : Version
 
     # Author
     getAllAuthors: [Author]
-    getAuthorById(id:ID!) : Author
+    getAuthorById(id:ID!) : Author @auth
 
     # Book
     getBookById(id:ID!) : Book
@@ -23,10 +31,9 @@ type Query {
 
 type Mutation {
     # Author
-    addAuthor(authorName : String) : Author
-
+    addAuthor(input : CreateAuthorRequest) : Author
     # Book
-    addBook(title: String!, publishedDate:String):Book!
+    addBook(input : CreateBookRequest) : Book! @auth
 #    deleteBook(id:ID!): DeleteBookResponse
 #
 #    # Review
@@ -34,6 +41,13 @@ type Mutation {
 #    deleteReviewById(id:ID!):DeleteReviewResponse
 }
 
+input CreateAuthorRequest {
+    authorName: String!
+}
+input CreateBookRequest {
+    title : String!
+    publishedDate : Date!
+}
 type DeleteReviewResponse{
     success : Boolean!
 }
@@ -43,14 +57,14 @@ type DeleteBookResponse{
 }
 
 type Version {
-    name : String,
+    name : String
+    description : String
     releaseDate : String
 }
 type Book {
     id : ID!
     title : String!
-    publisher : String
-    publishedDate:Date
+    publishedDate : Date
     authors: [Author]!
     reviews: [Review]!
 }
