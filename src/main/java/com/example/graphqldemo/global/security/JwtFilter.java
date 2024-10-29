@@ -13,9 +13,11 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtProvider jwtProvider;
+    private final SecurityService securityService;
 
-    public JwtFilter(JwtProvider jwtProvider){
+    public JwtFilter(JwtProvider jwtProvider, SecurityService securityService){
         this.jwtProvider = jwtProvider;
+        this.securityService = securityService;
     }
 /*
     JWT 필터 시나리오
@@ -32,7 +34,8 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = jwtProvider.resolveToken(request);
 
         if(jwtProvider.validationToken(token)) {
-            Authentication authentication = jwtProvider.getAuthentication(token);
+            String userId = jwtProvider.getUsername(token);
+            Authentication authentication = securityService.getAuthentication(userId);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);

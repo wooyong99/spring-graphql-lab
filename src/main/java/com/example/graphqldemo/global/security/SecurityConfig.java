@@ -25,11 +25,13 @@ public class SecurityConfig {
 
     private final JwtProvider jwtProvider;
     private final EntryPointUnauthorizedHandler unauthorizedHandler;
+    private final SecurityService securityService;
 
     @Autowired
-    public SecurityConfig(JwtProvider jwtProvider, EntryPointUnauthorizedHandler unauthorizedHandler) {
+    public SecurityConfig(JwtProvider jwtProvider, EntryPointUnauthorizedHandler unauthorizedHandler, SecurityService securityService) {
         this.jwtProvider = jwtProvider;
         this.unauthorizedHandler = unauthorizedHandler;
+        this.securityService = securityService;
     }
 
     @Bean
@@ -45,7 +47,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .httpBasic(withDefaults())      // 기본 HTTP 인증 방식을 비활서화. 브라우저나 클라이언트가 기본 인증 방식을 통해 사용자 이름과 비밀번호를 입력하도록 요구
-                .addFilterBefore(new JwtFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(jwtProvider,securityService), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(
                         exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler)
                 )

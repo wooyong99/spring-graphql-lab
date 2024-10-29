@@ -19,14 +19,8 @@ public class SecurityUtils {
     }
 
     public static Author getAuthor() {
-        Object object = SecurityContextHolder.getContext().getAuthentication() != null ?
-                (SecurityContextHolder.getContext().getAuthentication()) :
+        return SecurityContextHolder.getContext().getAuthentication() != null ?
+                ((Author) SecurityContextHolder.getContext().getAuthentication().getPrincipal()) :
                 null;
-
-        if(object instanceof Author) {
-            return (Author) object;
-        }else{
-            return null;
-        }
     }
 }

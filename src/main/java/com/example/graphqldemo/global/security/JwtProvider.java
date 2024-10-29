@@ -55,7 +55,7 @@ public class JwtProvider {
                 .get("role", String.class);
     }
 
-    private String getUsername(String accessToken) {
+    public String getUsername(String accessToken) {
         return Jwts.parser()
                 .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(accessToken)
