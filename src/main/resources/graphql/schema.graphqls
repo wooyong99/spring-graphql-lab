@@ -2,6 +2,7 @@ scalar Date
 scalar String
 scalar Boolean
 scalar Float
+scalar Long
 
 directive @auth on FIELD_DEFINITION
 directive @log on FIELD_DEFINITION
@@ -26,7 +27,10 @@ type Query {
     getBooksByAuthorName(authorName : String): [Book]
 #
 #    # Review
-#    getReviewsByBookId(id:ID!): [Review]
+    getReviewsByBookId(id:ID!): [Review]
+    getReviews: [Review]
+    getReviewById(id:ID!) : Review
+    getReviewsByAuthorName(authorName : String!) : [Review]
 }
 
 type Mutation {
@@ -37,10 +41,14 @@ type Mutation {
 #    deleteBook(id:ID!): DeleteBookResponse
 #
 #    # Review
-#    addReview(bookdId:ID!, content:String, rating:Float):Review
+    addReview(input : CreateReviewRequest):Review! @auth
 #    deleteReviewById(id:ID!):DeleteReviewResponse
 }
-
+input CreateReviewRequest {
+    bookId : Long!
+    content: String!
+    rating: Float!
+}
 input CreateAuthorRequest {
     authorName: String!
 }
@@ -82,5 +90,6 @@ type Review {
     content : String
     rating : Float
     createdDate : Date
+    author : Author
 }
 
