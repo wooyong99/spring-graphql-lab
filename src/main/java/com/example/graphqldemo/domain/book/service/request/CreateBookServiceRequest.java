@@ -2,15 +2,15 @@ package com.example.graphqldemo.domain.book.service.request;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class CreateBookServiceRequest {
     public Long authorId;
     public String title;
-    public Date publishedDate;
+    public LocalDate publishedDate;
 
-    public CreateBookServiceRequest(Long authorId, String title, Date publishedDate) {
+    public CreateBookServiceRequest(Long authorId, String title, LocalDate publishedDate) {
         this.authorId = authorId;
         this.title = title;
         this.publishedDate = publishedDate;

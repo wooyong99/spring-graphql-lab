@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -18,13 +18,13 @@ public class Book {
 
     private String title;
 
-    private Date publishedDate;
+    private LocalDate publishedDate;
 
     @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Author author;
 
-    protected Book(String title, Date publishedDate, Author author){
+    protected Book(String title, LocalDate publishedDate, Author author){
         this.title = title;
         this.publishedDate = publishedDate;
         setAuthor(author);
@@ -38,7 +38,7 @@ public class Book {
         this.author.getBooks().add(this);
     }
 
-    public static Book of(String title, Date publishedDate, Author author){
+    public static Book of(String title, LocalDate publishedDate, Author author){
         return new Book(title, publishedDate, author);
     }
 }

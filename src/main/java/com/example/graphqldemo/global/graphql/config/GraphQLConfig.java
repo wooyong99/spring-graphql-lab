@@ -15,6 +15,15 @@ import java.util.Map;
 @Configuration
 public class GraphQLConfig {
 
+//    @Bean
+//    public DefaultFormattingConversionService conversionService() {
+//        DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
+//        DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
+//        registrar.setDateFormatter(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        registrar.registerFormatters(conversionService);
+//        return conversionService;
+//    }
+
 //    GraphQL Java의 RuntimeWiringConfigurer는 DataFetchers, TypeResolver, Custom ScalarType 등을 등록하는데 사용된다.
 //    실질적인 로직은 RuntimeWiringConfigurer 에 daaFetcher를 등록함으로써 graphQL API 호출에 대해 로직이 동작한다.
 //    DateFetcher는 GraphQL Java에서 가장 중요한 개념 중 하나이다. GraphQL API 요청을 받으면 쿼리가 실행되는 동안 쿼리에서 요청한 각 필드들에 대해 적절한 DateFetcher가 호출된다.
@@ -25,6 +34,7 @@ public class GraphQLConfig {
             LogDirective logDirective){
         return wiringBuilder ->
                 wiringBuilder
+//                        .scalar(coerceScalar(conversionService()))
                         .scalar(ExtendedScalars.GraphQLLong)
                         .scalar(ExtendedScalars.Date)
                         .scalar(ExtendedScalars.DateTime)
@@ -32,6 +42,34 @@ public class GraphQLConfig {
                         .directive("auth", authenticationDirective)
                         .directive("log", logDirective);
     }
+//
+//    private GraphQLScalarType coerceScalar(DefaultFormattingConversionService conversionService) {
+//        return GraphQLScalarType.newScalar()
+//                .name("Date")
+//                .description("Date Scalar Type")
+//                .coercing(new Coercing<LocalDate, String>() {
+//                    @Override
+//                    public String serialize(Object dataFetcherResult) throws CoercingSerializeException {
+//                        return conversionService.convert(dataFetcherResult, String.class);
+//                    }
+//
+//                    @Override
+//                    public LocalDate parseValue(Object input) {
+//                        if (input instanceof String) {
+//                            return LocalDate.parse((String) input, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//                        }
+//                        throw new CoercingParseValueException("Invalid value for LocalDate: " + input);
+//                    }
+//
+//                    @Override
+//                    public LocalDate parseLiteral(Object input) {
+//                        if (input instanceof StringValue) {
+//                            return LocalDate.parse(((StringValue) input).getValue(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//                        }
+//                        throw new CoercingParseLiteralException("Invalid value for LocalDate: " + input);
+//                    }
+//                }).build();
+//    }
 
     private Map<String, DataFetcher> dataFetcherMap = Map.of(
             "version", env -> new Version("1.1.1", "version", new Date()),

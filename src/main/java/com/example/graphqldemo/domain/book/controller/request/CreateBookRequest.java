@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -12,5 +12,6 @@ import java.util.Date;
 public class CreateBookRequest {
 
     public String title;
-    public Date publishedDate;
+
+    public LocalDate publishedDate;
 }

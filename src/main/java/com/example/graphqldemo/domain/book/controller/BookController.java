@@ -6,7 +6,6 @@ import com.example.graphqldemo.domain.book.service.BookService;
 import com.example.graphqldemo.domain.book.service.request.CreateBookServiceRequest;
 import com.example.graphqldemo.global.security.SecurityUtils;
 import org.springframework.graphql.data.method.annotation.Argument;
-import org.springframework.graphql.data.method.annotation.Arguments;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
@@ -23,8 +22,8 @@ public class BookController {
     }
 
     @QueryMapping
-    public Book getBookById(@Argument Long bookId){
-        return bookService.getBookById(bookId);
+    public Book getBookById(@Argument Long id){
+        return bookService.getBookById(id);
     }
 
     @QueryMapping
@@ -34,11 +33,11 @@ public class BookController {
 
     @QueryMapping
     public List<Book> getBooksByAuthorName(@Argument String authorName){
-        return null;
+        return bookService.getBooksByAuthorName(authorName);
     }
 
     @MutationMapping
-    public Book addBook(@Arguments CreateBookRequest request){
+    public Book addBook(@Argument("input") CreateBookRequest request){
         Long authorId = SecurityUtils.getAuthorId();
         CreateBookServiceRequest serviceRequest = new CreateBookServiceRequest(authorId, request.getTitle(), request.getPublishedDate());
         return bookService.create(serviceRequest);
