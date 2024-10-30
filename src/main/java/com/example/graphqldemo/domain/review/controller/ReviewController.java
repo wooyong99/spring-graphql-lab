@@ -39,8 +39,8 @@ public class ReviewController {
     }
 
     @QueryMapping
-    public List<Review> getReviewsByAuthorName(@Argument String authorName){
-        return reviewService.getReviewsByAuthorName(authorName);
+    public List<Review> getReviewsByMemberName(@Argument String memberName){
+        return reviewService.getReviewsByMemberName(memberName);
     }
 
     @MutationMapping

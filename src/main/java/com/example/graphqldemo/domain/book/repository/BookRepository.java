@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BookRepository {
 
-    List<Book> findByAuthorName(String authorName);
+    List<Book> findByMemberName(String memberName);
 
     List<Book> findAll();
 

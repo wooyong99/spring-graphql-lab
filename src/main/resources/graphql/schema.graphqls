@@ -18,24 +18,24 @@ type Query {
     includeDirectiveTest(isShow : Boolean!) : Version
 
     # Author
-    getAllAuthors: [Author]
-    getAuthorById(id:ID!) : Author @auth
+    getAllMembers: [Member]
+    getMemberById(id:ID!) : Member
 
     # Book
     getBookById(id:ID!) : Book
     getBooks : [Book]
-    getBooksByAuthorName(authorName : String): [Book]
+    getBooksByMemberName(memberName : String): [Book]
 #
 #    # Review
     getReviewsByBookId(id:ID!): [Review]
     getReviews: [Review]
     getReviewById(id:ID!) : Review
-    getReviewsByAuthorName(authorName : String!) : [Review]
+    getReviewsByMemberName(memberName : String!) : [Review]
 }
 
 type Mutation {
     # Author
-    addAuthor(input : CreateAuthorRequest) : Author
+    addMember(input : CreateMemberRequest) : Member
     # Book
     addBook(input : CreateBookRequest) : Book! @auth
 #    deleteBook(id:ID!): DeleteBookResponse
@@ -49,8 +49,9 @@ input CreateReviewRequest {
     content: String!
     rating: Float!
 }
-input CreateAuthorRequest {
-    authorName: String!
+input CreateMemberRequest {
+    name: String!
+    age: Long!
 }
 input CreateBookRequest {
     title : String!
@@ -73,13 +74,14 @@ type Book {
     id : ID!
     title : String!
     publishedDate : Date
-    authors: [Author]!
+    members: [Member]!
     reviews: [Review]!
 }
 
-type Author {
+type Member {
     id : ID
     name : String
+    age : Long
     books : [Book]
     reviews : [Review]
 }
@@ -90,6 +92,6 @@ type Review {
     content : String
     rating : Float
     createdDate : Date
-    author : Author
+    member : Member
 }
 

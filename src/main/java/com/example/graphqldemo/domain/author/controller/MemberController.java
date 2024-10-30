@@ -1,9 +1,9 @@
 package com.example.graphqldemo.domain.author.controller;
 
-import com.example.graphqldemo.domain.author.controller.request.CreateAuthorRequest;
-import com.example.graphqldemo.domain.author.entity.Author;
-import com.example.graphqldemo.domain.author.service.AuthorService;
-import com.example.graphqldemo.domain.author.service.request.CreateAuthorServiceRequest;
+import com.example.graphqldemo.domain.author.controller.request.CreateMemberRequest;
+import com.example.graphqldemo.domain.author.entity.Member;
+import com.example.graphqldemo.domain.author.service.MemberService;
+import com.example.graphqldemo.domain.author.service.request.CreateMemberServiceRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -13,21 +13,21 @@ import org.springframework.stereotype.Controller;
 import java.util.List;
 
 @Controller
-public class AuthorController {
+public class MemberController {
 
-    private final AuthorService authorService;
+    private final MemberService memberService;
 
     @Autowired
-    public AuthorController(AuthorService authorService) { this.authorService = authorService; }
+    public MemberController(MemberService memberService) { this.memberService = memberService; }
 
     @QueryMapping
-    public List<Author> getAllAuthors(){
-        return authorService.getAuthors();
+    public List<Member> getAllMembers(){
+        return memberService.getMembers();
     }
 
     @QueryMapping
-    public Author getAuthorById(@Argument Long id){
-        return authorService.getAuthorById(id);
+    public Member getMemberById(@Argument Long id){
+        return memberService.getMemberById(id);
     }
 
 /*    스키마 파일 구조
@@ -43,9 +43,9 @@ public class AuthorController {
     }*/
 
     @MutationMapping
-    public Author addAuthor(@Argument("input") CreateAuthorRequest request){
-        CreateAuthorServiceRequest serviceRequest = new CreateAuthorServiceRequest(request.getAuthorName());
-        return authorService.create(serviceRequest);
+    public Member addMember(@Argument("input") CreateMemberRequest request){
+        CreateMemberServiceRequest serviceRequest = new CreateMemberServiceRequest(request.getName(), request.getAge());
+        return memberService.create(serviceRequest);
     }
 /*
     Argument 와 Arguments 차이점

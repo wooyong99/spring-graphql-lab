@@ -32,8 +32,8 @@ public class BookController {
     }
 
     @QueryMapping
-    public List<Book> getBooksByAuthorName(@Argument String authorName){
-        return bookService.getBooksByAuthorName(authorName);
+    public List<Book> getBooksByMemberName(@Argument String memberName){
+        return bookService.getBooksByAuthorName(memberName);
     }
 
     @MutationMapping

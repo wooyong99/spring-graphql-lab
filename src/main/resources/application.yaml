@@ -19,12 +19,20 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-      format_sql: true
-      show_sql: true
-      dialect: org.hibernate.dialect.MySQLDialect
+    #    show-sql: true
+    properties:
+      hibernate:
+#        show_sql: true
+        highlight_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+#        use_sql_comments: true
 
 jwt:
   token:
     secret-key: asdasdasd123123sdfasdfasdfasdf1asdsdf1e3123123123
     expire-time: 6400000000000000000
-
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type:
+    org.hibernate.orm.jdbc.bind: trace

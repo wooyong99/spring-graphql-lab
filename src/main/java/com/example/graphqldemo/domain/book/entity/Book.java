@@ -1,6 +1,6 @@
 package com.example.graphqldemo.domain.book.entity;
 
-import com.example.graphqldemo.domain.author.entity.Author;
+import com.example.graphqldemo.domain.author.entity.Member;
 import com.example.graphqldemo.domain.review.entity.Review;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,27 +25,27 @@ public class Book {
 
     @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private Author author;
+    private Member member;
 
     @OneToMany(mappedBy = "book", cascade = {CascadeType.PERSIST,
             CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Review> reviews = new HashSet<>();
 
-    protected Book(String title, LocalDate publishedDate, Author author){
+    protected Book(String title, LocalDate publishedDate, Member member){
         this.title = title;
         this.publishedDate = publishedDate;
-        setAuthor(author);
+        setMember(member);
     }
 
-    private void setAuthor(Author author) {
-        if(this.author != null) {
-            this.author.getBooks().remove(this);
+    private void setMember(Member member) {
+        if(this.member != null) {
+            this.member.getBooks().remove(this);
         }
-        this.author = author;
-        this.author.getBooks().add(this);
+        this.member = member;
+        this.member.getBooks().add(this);
     }
 
-    public static Book of(String title, LocalDate publishedDate, Author author){
-        return new Book(title, publishedDate, author);
+    public static Book of(String title, LocalDate publishedDate, Member member){
+        return new Book(title, publishedDate, member);
     }
 }

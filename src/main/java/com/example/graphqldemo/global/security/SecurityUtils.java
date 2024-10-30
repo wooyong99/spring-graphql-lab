@@ -1,6 +1,6 @@
 package com.example.graphqldemo.global.security;
 
-import com.example.graphqldemo.domain.author.entity.Author;
+import com.example.graphqldemo.domain.author.entity.Member;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,13 +14,13 @@ public class SecurityUtils {
     }
 
     public static Long getAuthorId() {
-        Author author = getAuthor();
-        return author == null ? null : author.getId();
+        Member member = getAuthor();
+        return member == null ? null : member.getId();
     }
 
-    public static Author getAuthor() {
+    public static Member getAuthor() {
         return SecurityContextHolder.getContext().getAuthentication() != null ?
-                ((Author) SecurityContextHolder.getContext().getAuthentication().getPrincipal()) :
+                ((Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal()) :
                 null;
     }
 }

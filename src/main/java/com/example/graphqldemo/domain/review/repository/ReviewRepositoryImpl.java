@@ -27,8 +27,8 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     }
 
     @Override
-    public List<Review> findByAuthorId(Long id) {
-        return reviewJpaRepository.findByAuthorId(id);
+    public List<Review> findByMemberId(Long id) {
+        return reviewJpaRepository.findByMemberId(id);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     }
 
     @Override
-    public List<Review> findByAuthorName(String authorName) {
-        return reviewJpaRepository.findByAuthorName(authorName);
+    public List<Review> findByMemberName(String memberName) {
+        return reviewJpaRepository.findByMemberName(memberName);
     }
 }

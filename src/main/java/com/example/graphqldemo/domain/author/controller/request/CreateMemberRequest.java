@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateAuthorRequest {
+public class CreateMemberRequest {
 
-    public String authorName;
+    public String name;
+    public Long age;
 }

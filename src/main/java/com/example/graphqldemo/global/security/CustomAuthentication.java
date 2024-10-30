@@ -1,21 +1,21 @@
 package com.example.graphqldemo.global.security;
 
-import com.example.graphqldemo.domain.author.entity.Author;
+import com.example.graphqldemo.domain.author.entity.Member;
 import lombok.Getter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @Getter
 public class CustomAuthentication extends UsernamePasswordAuthenticationToken {
 
-    private Author author;
+    private Member member;
 
-    public CustomAuthentication(Author author) {
-        super(author, null, null);
-        this.author = author;
+    public CustomAuthentication(Member member) {
+        super(member, null, null);
+        this.member = member;
     }
 
     @Override
     public String getName(){
-        return String.valueOf(author.getId());
+        return String.valueOf(member.getId());
     }
 }

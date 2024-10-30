@@ -17,8 +17,8 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public List<Book> findByAuthorName(String authorName) {
-        return bookJpaRepository.findByAuthorName(authorName);
+    public List<Book> findByMemberName(String memberName) {
+        return bookJpaRepository.findByAuthorName(memberName);
     }
 
     @Override

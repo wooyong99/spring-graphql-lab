@@ -10,6 +10,6 @@ import java.util.List;
 public interface BookJpaRepository extends JpaRepository<Book,Long>{
 
     // JPQL을 사용하여 authorName으로 book 리스트를 찾는 메서드
-    @Query("SELECT b FROM Book b WHERE b.author.name = :authorName")
-    List<Book> findByAuthorName(@Param("authorName") String authorName);
+    @Query("SELECT b FROM Book b WHERE b.member.name = :memberName")
+    List<Book> findByAuthorName(@Param("memberName") String memberName);
 }

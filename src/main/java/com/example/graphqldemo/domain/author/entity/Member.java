@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Author {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,16 +20,19 @@ public class Author {
 
     private String name;
 
-    @OneToMany(mappedBy = "author", cascade = {CascadeType.PERSIST,
+    private Long age;
+
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST,
             CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Book> books = new HashSet<>();
 
-    @OneToMany(mappedBy = "author", cascade = {CascadeType.PERSIST,
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST,
             CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Review> reviews = new HashSet<>();
 
-    public Author(String name){
+    public Member(String name, Long age) {
         this.name = name;
+        this.age = age;
     }
 
 }

@@ -1,7 +1,7 @@
 package com.example.graphqldemo.domain.review.service;
 
-import com.example.graphqldemo.domain.author.entity.Author;
-import com.example.graphqldemo.domain.author.repository.AuthorRepository;
+import com.example.graphqldemo.domain.author.entity.Member;
+import com.example.graphqldemo.domain.author.repository.MemberRepository;
 import com.example.graphqldemo.domain.book.entity.Book;
 import com.example.graphqldemo.domain.book.repository.BookRepository;
 import com.example.graphqldemo.domain.review.entity.Review;
@@ -15,14 +15,14 @@ import java.util.List;
 @Service
 public class ReviewService {
 
-    private final AuthorRepository authorRepository;
+    private final MemberRepository memberRepository;
     private final BookRepository bookRepository;
     private final ReviewRepository reviewRepository;
 
     @Autowired
-    public ReviewService(ReviewRepository reviewRepository, AuthorRepository authorRepository, BookRepository bookRepository) {
+    public ReviewService(ReviewRepository reviewRepository, MemberRepository memberRepository, BookRepository bookRepository) {
         this.reviewRepository = reviewRepository;
-        this.authorRepository = authorRepository;
+        this.memberRepository = memberRepository;
         this.bookRepository = bookRepository;
     }
 
@@ -30,19 +30,19 @@ public class ReviewService {
         return reviewRepository.findByBookId(id);
     }
 
-    public List<Review> getReviewsByAuthorName(String authorName) {
-        return reviewRepository.findByAuthorName(authorName);
+    public List<Review> getReviewsByMemberName(String memberName) {
+        return reviewRepository.findByMemberName(memberName);
     }
 
     public List<Review> getReviewsByAuthorId(Long id) {
-        return reviewRepository.findByAuthorId(id);
+        return reviewRepository.findByMemberId(id);
     }
 
     public Review create(CreateReviewServiceRequest request) {
-        Author author = authorRepository.findById(request.getAuthorId());
+        Member member = memberRepository.findById(request.getAuthorId());
         Book book = bookRepository.findById(request.getBookId());
 
-        Review review = Review.of(author, book, request.getContent(), request.getRating());
+        Review review = Review.of(member, book, request.getContent(), request.getRating());
         reviewRepository.save(review);
         return review;
     }

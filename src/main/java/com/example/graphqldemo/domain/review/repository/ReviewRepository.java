@@ -9,11 +9,11 @@ public interface ReviewRepository {
 
     List<Review> findAll();
 
-    List<Review> findByAuthorId(Long id);
+    List<Review> findByMemberId(Long id);
 
     List<Review> findByBookId(Long id);
 
     Review findById(Long id);
 
-    List<Review> findByAuthorName(String authorName);
+    List<Review> findByMemberName(String memberName);
 }

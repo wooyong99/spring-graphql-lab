@@ -1,7 +1,7 @@
 package com.example.graphqldemo.domain.book.service;
 
-import com.example.graphqldemo.domain.author.entity.Author;
-import com.example.graphqldemo.domain.author.repository.AuthorRepository;
+import com.example.graphqldemo.domain.author.entity.Member;
+import com.example.graphqldemo.domain.author.repository.MemberRepository;
 import com.example.graphqldemo.domain.book.entity.Book;
 import com.example.graphqldemo.domain.book.repository.BookRepository;
 import com.example.graphqldemo.domain.book.service.request.CreateBookServiceRequest;
@@ -14,12 +14,12 @@ import java.util.List;
 public class BookService {
 
     private BookRepository bookRepository;
-    private AuthorRepository authorRepository;
+    private MemberRepository memberRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository, AuthorRepository authorRepository) {
+    public BookService(BookRepository bookRepository, MemberRepository memberRepository) {
         this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
+        this.memberRepository = memberRepository;
     }
 
     public Book getBookById(Long bookId) {
@@ -31,12 +31,12 @@ public class BookService {
     }
 
     public List<Book> getBooksByAuthorName(String authorName) {
-        return bookRepository.findByAuthorName(authorName);
+        return bookRepository.findByMemberName(authorName);
     }
 
     public Book create(CreateBookServiceRequest request) {
-        Author author = authorRepository.findById(request.getAuthorId());
-        Book book = Book.of(request.getTitle(), request.getPublishedDate(), author);
+        Member member = memberRepository.findById(request.getAuthorId());
+        Book book = Book.of(request.getTitle(), request.getPublishedDate(), member);
         bookRepository.save(book);
 
         return book;
